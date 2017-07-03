@@ -136,6 +136,8 @@ asm (
 #define __NR_CLONE        __NR_clone
 #define __NR_EXIT         __NR_exit
 
+#define _MIPS_ARCH_OCTEON { (VEX_PRID_COMP_CAVIUM == VG_(get_machine_model))}
+
 // See priv_syswrap-linux.h for arg profile.
 asm(
 ".text\n" 
@@ -171,6 +173,9 @@ asm(
 "   nop\n"
 
 "   ld $25,0($29)\n"
+#if defined(_MIPS_ARCH_OCTEON)
+"move    $k0, $5\n"
+#endif
 "   jalr $25\n"
 "   ld $4,8($29)\n"
 
@@ -202,6 +207,9 @@ void VG_(cleanup_thread) ( ThreadArchState * arch ) { };
 SysRes sys_set_tls ( ThreadId tid, Addr tlsptr )
 {
    VG_(threads)[tid].arch.vex.guest_ULR = tlsptr;
+#if defined(_MIPS_ARCH_OCTEON)
+   VG_(threads)[tid].arch.vex.guest_r26 = tlsptr; /* Cavium OCTEON */
+#endif
    return VG_(mk_SysRes_Success)( 0 );
 }
 
