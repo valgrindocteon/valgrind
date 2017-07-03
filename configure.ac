@@ -1746,10 +1746,22 @@ AC_SUBST(FLAG_MIPS64)
 # does this compiler support -march=octeon (Cavium OCTEON I Specific) ?
 AC_MSG_CHECKING([if gcc accepts -march=octeon])
 
+# if CFLAGS is already passed with -march option
+# compiler is fine but linker fails to build for
+# certain combinations of -march. So, use AC_LINK_IFELSE
+# instead of AC_COMPILE_IFELSE in order to ascertain
+# that the march combination is valid.
+# if the linker is not ok with the combination
+# just leave FLAG_OCTEON unset so that the -march in
+# CFLAGS will alone be used to build (the testcases concerned)
+# when -march=octeon -march=octeon3 is passed, octeon3 is
+# chosen by compiler and linker to build the binary.
+# but when -march=octeon3 -march=octeon is passed, octeon is
+# chosen by compiler but octeon3 is chosen by linker and build fails
 safe_CFLAGS=$CFLAGS
 CFLAGS="$CFLAGS -march=octeon -Werror"
 
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[
   return 0;
 ]])], [
 FLAG_OCTEON="-march=octeon"
@@ -1766,10 +1778,22 @@ AC_SUBST(FLAG_OCTEON)
 # does this compiler support -march=octeon2 (Cavium OCTEON II Specific) ?
 AC_MSG_CHECKING([if gcc accepts -march=octeon2])
 
+# if CFLAGS is already passed with -march option
+# compiler is fine but linker fails to build for
+# certain combinations of -march. So, use AC_LINK_IFELSE
+# instead of AC_COMPILE_IFELSE in order to ascertain
+# that the march combination is valid.
+# if the linker is not ok with the combination
+# just leave FLAG_OCTEON2 unset so that the -march in
+# CFLAGS will alone be used to build (the testcases concerned)
+# when -march=octeon3 -march=octeon2 is passed, octeon2 is
+# chosen by compiler and linker to build the binary.
+# but when -march=octeon2 -march=octeon3 is passed, octeon3 is
+# chosen by compiler but octeon2 is chosen by linker and build fails
 safe_CFLAGS=$CFLAGS
-CFLAGS="$CFLAGS -march=octeon2 -Werror"
+CFLAGS="-march=octeon2 -Werror $CFLAGS"
 
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[
   return 0;
 ]])], [
 FLAG_OCTEON2="-march=octeon2"
