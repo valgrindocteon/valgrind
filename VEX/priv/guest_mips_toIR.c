@@ -2280,6 +2280,46 @@ static void mips_load_store64(IRTemp op1addr, IRTemp new_val,
       putIReg(rd, mkexpr(old_mem));
 }
 
+static Bool dis_instr_CVM_COP2 ( UInt theInstr )
+{
+   UChar  opc1     = get_opcode(theInstr);
+   UChar  opc2     = get_fmt(theInstr);
+   UChar  regRt    = get_rt(theInstr);
+   UInt   imm      = get_imm(theInstr);
+
+   IRType ty       = mode64? Ity_I64 : Ity_I32;
+   IRTemp tmp      = newTemp(ty);
+   IRTemp tmpRt    = newTemp(ty);
+   IRTemp t1       = newTemp(ty);
+   UInt size;
+   assign(tmpRt, getIReg(regRt));
+
+   switch(opc1) {
+      case 0x12: {
+         switch(opc2) {
+            case 0x05: {  /* DMTC2 rt, imm */
+               IRDirty *d;
+
+               DIP("dmtc2 r%u, 0x%x\n", regRt, imm);
+               d = unsafeIRDirty_0_N(0 /* regparms */, "md5_hash", &md5_hash,
+                     mkIRExprVec_2(getIReg(regRt), mkU32(imm)));
+
+               stmt(IRStmt_Dirty(d));
+               vex_printf("DMTC2 with DMT 5 statement added\n");
+               break;
+            }
+            default:
+               return False;
+         }
+         break;
+      } /* opc1 = 0x12 ends here*/
+      default:
+         return False;
+   } /* main opc1 switch ends here */
+   vex_printf("DMTC2 with DMT 5 statement added, return true\n");
+   return True;
+}
+
 static Bool dis_instr_CVM ( UInt theInstr )
 {
    UChar  opc2     = get_function(theInstr);
@@ -14412,6 +14452,29 @@ static DisResult disInstr_MIPS_WRK ( Bool(*resteerOkFn) (/*opaque */void *,
 #endif
       }
       break;
+
+   case 0x12: { /* COP2 */
+      switch (fmt) {
+      case 0x5:
+         if (VEX_MIPS_COMP_ID(archinfo->hwcaps) == VEX_PRID_COMP_CAVIUM) {
+            if (dis_instr_CVM_COP2(cins)) {
+               vex_printf("DMTC2 with DMT 5 identified. No implementation yet. exiting\n");
+               break; // NOT goto decode_failure;
+            } else {
+               vex_printf("DMTC2 with DMT 5 coming here - which shouldn't be\n");
+               // goto decode_failure;
+            }
+         } else {
+            vex_printf("DMTC2 with DMT 5 identified. Not a cavium board. exiting\n");
+            // goto decode_failure;
+         }
+         goto decode_failure;
+      default:
+         vex_printf("unknown COP2 function. exiting\n");
+         goto decode_failure;
+      }
+      break; /* End of COP2 */
+   }
 
    case 0x1C:  /* Special2 */
       switch (function) {

@@ -559,6 +559,22 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
                     : "t0", "$f24", "$f26"                              \
                    );
 
+extern void md5_hash(ULong rt, UInt imm)
+{
+   switch (imm) {
+   case 0x0048:
+      vex_printf("rt value: 0x%llx\n", rt);
+      __asm__ volatile("dmtc2 %[rt], 0x48" : : [rt] "r" (rt));
+      break;
+   case 0x0049:
+      vex_printf("rt value: 0x%llx\n", rt);
+      __asm__ volatile("dmtc2 %[rt], 0x49" : : [rt] "r" (rt));
+      break;
+   default:
+      vex_printf("invalid imm found: 0x%x\n", imm);
+   }
+}
+
 /* TODO: Add cases for all fpu instructions because all fpu instructions are
          change the value of FCSR register. */
 extern UInt mips_dirtyhelper_calculate_FCSR_fp32 ( void* gs, UInt fs, UInt ft,
