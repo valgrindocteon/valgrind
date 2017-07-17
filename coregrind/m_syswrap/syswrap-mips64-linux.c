@@ -237,6 +237,7 @@ DECL_TEMPLATE (mips_linux, sys_setdomainname);
 DECL_TEMPLATE (mips_linux, sys_sethostname);
 DECL_TEMPLATE (mips_linux, sys_reboot);
 DECL_TEMPLATE (mips_linux, sys_cacheflush);
+DECL_TEMPLATE (mips_linux, sys_sysmips);
 DECL_TEMPLATE (mips_linux, sys_sched_rr_get_interval);
 DECL_TEMPLATE (mips_linux, sys_unshare);
 DECL_TEMPLATE (mips_linux, sys_prctl);
@@ -315,6 +316,15 @@ PRE(sys_cacheflush)
                  unsigned long, nbytes, unsigned int, cache);
    VG_ (discard_translations) ((Addr)ARG1, (ULong) ARG2,
                                "PRE(sys_cacheflush)");
+   SET_STATUS_Success(0);
+}
+
+/* Very much MIPS specific */
+PRE(sys_sysmips)
+{
+   PRINT("sysmips(%lx, %lx, %lx)", ARG1, ARG2, ARG3);
+   PRE_REG_READ3(long, "sysmips", long, cmd,
+                 long, pid, long, iomem);
    SET_STATUS_Success(0);
 }
 
@@ -743,6 +753,7 @@ static SyscallTableEntry syscall_main_table[] = {
    LINX_ (__NR_sched_setaffinity, sys_sched_setaffinity),
    LINXY (__NR_sched_getaffinity, sys_sched_getaffinity),
    PLAX_ (__NR_cacheflush, sys_cacheflush),
+   PLAX_ (__NR_sysmips, sys_sysmips),
    LINXY (__NR_io_setup, sys_io_setup),
    LINX_ (__NR_io_destroy, sys_io_destroy),
    LINXY (__NR_io_getevents, sys_io_getevents),
