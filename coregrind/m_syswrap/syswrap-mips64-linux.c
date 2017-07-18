@@ -329,7 +329,7 @@ PRE(sys_sysmips)
 
 POST(sys_sysmips)
 {
-   POST_MEM_WRITE(0x8001180000000000ull, (size_t) 0x6ffffff);
+   POST_MEM_WRITE(0x8001180000000000ull, (vki_size_t) 0x10000000);
 }
 
 PRE(sys_reboot)
