@@ -6144,7 +6144,14 @@ static Bool mc_process_cmd_line_options(const HChar* arg)
             VG_(indexRangeMap)( &key_min, &key_max, &val,
                                 gIgnoredAddressRanges, i );
             tl_assert(key_min <= key_max);
-            UWord limit = 0x4000000; /* 64M - entirely arbitrary limit */
+	    /* allow the entire XKPHYS address range to be specified here.
+	       All addresses with 63:62 bit value 0b10 belong to XKPHYS.
+	       So, quarter of entire 64 bit address space belong to XKPHYS
+	       which is 2^62.
+	       To ignore XKPHYS address space, user will typically pass,
+	       --ignore-ranges=0x8000000000000000-0xbfffffffffffffff
+	       ToDO: bring this under CAVIUM or MIPS conditional compilation */
+            UWord limit = 1ul << 62;
             if (key_max - key_min > limit && val == IAR_CommandLine) {
                VG_(message)(Vg_DebugMsg, 
                   "ERROR: --ignore-ranges: suspiciously large range:\n");
