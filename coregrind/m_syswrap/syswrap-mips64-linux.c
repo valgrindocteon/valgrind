@@ -327,11 +327,6 @@ PRE(sys_sysmips)
                  long, pid, long, iomem);
 }
 
-POST(sys_sysmips)
-{
-   POST_MEM_WRITE(0x8001180000000000ull, (vki_size_t) 0x10000000);
-}
-
 PRE(sys_reboot)
 {
    PRINT("sys_reboot ( %ld, %ld, %lu, %#lx )", SARG1, ARG2, ARG3, ARG4);
@@ -757,7 +752,7 @@ static SyscallTableEntry syscall_main_table[] = {
    LINX_ (__NR_sched_setaffinity, sys_sched_setaffinity),
    LINXY (__NR_sched_getaffinity, sys_sched_getaffinity),
    PLAX_ (__NR_cacheflush, sys_cacheflush),
-   PLAXY (__NR_sysmips, sys_sysmips),
+   PLAX_ (__NR_sysmips, sys_sysmips),
    LINXY (__NR_io_setup, sys_io_setup),
    LINX_ (__NR_io_destroy, sys_io_destroy),
    LINXY (__NR_io_getevents, sys_io_getevents),
