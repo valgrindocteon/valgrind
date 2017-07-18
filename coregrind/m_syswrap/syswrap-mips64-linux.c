@@ -325,7 +325,6 @@ PRE(sys_sysmips)
    PRINT("sysmips(%lx, %lx, %lx)", ARG1, ARG2, ARG3);
    PRE_REG_READ3(long, "sysmips", long, cmd,
                  long, pid, long, iomem);
-   SET_STATUS_Success(0);
 }
 
 PRE(sys_reboot)
