@@ -322,9 +322,14 @@ PRE(sys_cacheflush)
 /* Very much MIPS specific */
 PRE(sys_sysmips)
 {
-   PRINT("sysmips(%lx, %lx, %lx)", ARG1, ARG2, ARG3);
+   PRINT("sysmips(%ld, %ld, %ld)", ARG1, ARG2, ARG3);
    PRE_REG_READ3(long, "sysmips", long, cmd,
                  long, pid, long, iomem);
+}
+
+POST(sys_sysmips)
+{
+   POST_MEM_WRITE(0x8001180000000000ull, (size_t) 0x6ffffff);
 }
 
 PRE(sys_reboot)
@@ -752,7 +757,7 @@ static SyscallTableEntry syscall_main_table[] = {
    LINX_ (__NR_sched_setaffinity, sys_sched_setaffinity),
    LINXY (__NR_sched_getaffinity, sys_sched_getaffinity),
    PLAX_ (__NR_cacheflush, sys_cacheflush),
-   PLAX_ (__NR_sysmips, sys_sysmips),
+   PLAXY (__NR_sysmips, sys_sysmips),
    LINXY (__NR_io_setup, sys_io_setup),
    LINX_ (__NR_io_destroy, sys_io_destroy),
    LINXY (__NR_io_getevents, sys_io_getevents),
