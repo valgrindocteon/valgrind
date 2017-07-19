@@ -558,102 +558,90 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
                     : "r" (&(addr[fs])), "r" (&(addr[ft])), "r" (fcsr)  \
                     : "t0", "$f24", "$f26"                              \
                    );
+#define ASM_VOLATILE_COP2_READ_REG(inst, imm)                           \
+  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));
+
+#define ASM_VOLATILE_COP2_WRITE_REG(inst, imm)                          \
+  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) : :);
 
 extern void md5_hash(ULong rt, UInt imm)
 {
    switch (imm) {
    /* Load Data into HSH Unit (narrow mode) */
    case 0x0040:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x40" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x40);
       break;
    case 0x0041:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x41" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x41);
       break;
    case 0x0042:
-         vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-         __asm__ volatile("dmtc2 %[rt], 0x42" : : [rt] "r" (rt));
-         break;
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x42);
+      break;
    case 0x0043:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x43" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x43);
       break;
    case 0x0044:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x44" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x44);
       break;
    case 0x0045:
-         vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-         __asm__ volatile("dmtc2 %[rt], 0x45" : : [rt] "r" (rt));
-         break;
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x45);
+      break;
    case 0x0046:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x46" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x46);
       break;
 
 
    /* Load IV into HSH Unit (narrow mode) */
    case 0x0048:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x48" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x48);
       break;
    case 0x0049:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x49" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x49);
       break;
    case 0x004A:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-         __asm__ volatile("dmtc2 %[rt], 0x4A" : : [rt] "r" (rt));
-         break;
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4A);
+      break;
    case 0x004B:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x4B" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4B);
       break;
 
    /* Start MD5 Hash */
    case 0x4047:
-      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
-      __asm__ volatile("dmtc2 %[rt], 0x4047" : : [rt] "r" (rt));
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4047);
       break;
 
    default:
-      vex_printf("invalid imm found: 0x%x\n", imm);
+      vex_printf("md5_hash: invalid imm found: 0x%x\n", imm);
    }
 }
 
 extern ULong md5_hash_dmf(UInt imm)
 {
-   ULong ret = 0;
+   ULong rt = 0;
    switch (imm) {
    /* Load IV from HSH Unit (narrow mode) */
    case 0x0048:
-      vex_printf("dmf imm 0x%x\n", imm);
-      __asm__ volatile("dmfc2 %[ret], 0x0048" : [ret] "=r" (ret) : :);
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x48);
       break;
    case 0x0049:
-      vex_printf("dmf imm 0x%x\n", imm);
-      __asm__ volatile("dmfc2 %[ret], 0x0049" : [ret] "=r" (ret) : :);
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x49);
       break;
    case 0x004A:
-      vex_printf("dmf imm 0x%x\n", imm);
-      __asm__ volatile("dmfc2 %[ret], 0x004A" : [ret] "=r" (ret) : :);
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4A);
       break;
    case 0x004B:
-      vex_printf("dmf imm 0x%x\n", imm);
-      __asm__ volatile("dmfc2 %[ret], 0x004B" : [ret] "=r" (ret) : :);
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4B);
       break;
 
    /* Load Data into HSH Unit (narrow mode) */
    case 0x0250:
-      vex_printf("dmf imm 0x%x\n", imm);
-      __asm__ volatile("dmfc2 %[ret], 0x0250" : [ret] "=r" (ret) : :);
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x250);
       break;
    default:
-      vex_printf("invalid imm found: 0x%x\n", imm);
+      vex_printf("md5_hash_dmf: invalid imm found: 0x%x\n", imm);
    }
 
-   return ret;
+   return rt;
 }
 
 /* TODO: Add cases for all fpu instructions because all fpu instructions are

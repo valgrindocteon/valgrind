@@ -2330,7 +2330,6 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
       default:
          return False;
    } /* main opc1 switch ends here */
-   vex_printf("DMTC2 with DMT 5 statement added, return true\n");
    return True;
 }
 
@@ -14473,7 +14472,6 @@ static DisResult disInstr_MIPS_WRK ( Bool(*resteerOkFn) (/*opaque */void *,
       case 0x1:
          if (VEX_MIPS_COMP_ID(archinfo->hwcaps) == VEX_PRID_COMP_CAVIUM) {
             if (dis_instr_CVM_COP2(cins)) {
-               vex_printf("DMTC2 with DMT 5 identified and handled.\n");
                break; // NOT goto decode_failure;
             } else {
                vex_printf("DMTC2 with DMT 5 coming here - COP2 insn emulation failed.\n");
