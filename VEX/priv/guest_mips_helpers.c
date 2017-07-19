@@ -562,13 +562,53 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
 extern void md5_hash(ULong rt, UInt imm)
 {
    switch (imm) {
+   /* Load Data into HSH Unit (narrow mode) */
+   case 0x0040:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x40" : : [rt] "r" (rt));
+      break;
+   case 0x0041:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x41" : : [rt] "r" (rt));
+      break;
+   case 0x0042:
+         vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+         __asm__ volatile("dmtc2 %[rt], 0x42" : : [rt] "r" (rt));
+         break;
+   case 0x0043:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x43" : : [rt] "r" (rt));
+      break;
+   case 0x0044:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x44" : : [rt] "r" (rt));
+      break;
+   case 0x0045:
+         vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+         __asm__ volatile("dmtc2 %[rt], 0x45" : : [rt] "r" (rt));
+         break;
+   case 0x0046:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x46" : : [rt] "r" (rt));
+      break;
+
+
+   /* Load IV into HSH Unit (narrow mode) */
    case 0x0048:
-      vex_printf("rt value: 0x%llx\n", rt);
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
       __asm__ volatile("dmtc2 %[rt], 0x48" : : [rt] "r" (rt));
       break;
    case 0x0049:
-      vex_printf("rt value: 0x%llx\n", rt);
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
       __asm__ volatile("dmtc2 %[rt], 0x49" : : [rt] "r" (rt));
+      break;
+   case 0x004A:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+         __asm__ volatile("dmtc2 %[rt], 0x4A" : : [rt] "r" (rt));
+         break;
+   case 0x004B:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x4B" : : [rt] "r" (rt));
       break;
    default:
       vex_printf("invalid imm found: 0x%x\n", imm);

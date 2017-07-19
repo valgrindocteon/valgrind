@@ -14458,10 +14458,10 @@ static DisResult disInstr_MIPS_WRK ( Bool(*resteerOkFn) (/*opaque */void *,
       case 0x5:
          if (VEX_MIPS_COMP_ID(archinfo->hwcaps) == VEX_PRID_COMP_CAVIUM) {
             if (dis_instr_CVM_COP2(cins)) {
-               vex_printf("DMTC2 with DMT 5 identified. No implementation yet. exiting\n");
+               vex_printf("DMTC2 with DMT 5 identified and handled.\n");
                break; // NOT goto decode_failure;
             } else {
-               vex_printf("DMTC2 with DMT 5 coming here - which shouldn't be\n");
+               vex_printf("DMTC2 with DMT 5 coming here - COP2 insn emulation failed.\n");
                // goto decode_failure;
             }
          } else {
