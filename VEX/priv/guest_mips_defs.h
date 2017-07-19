@@ -104,7 +104,7 @@ extern HWord mips_dirtyhelper_rdhwr ( UInt rd );
 
 extern void md5_hash ( ULong rt, UInt imm );
 
-extern void md5_hash_dmf ( UInt imm );
+extern ULong md5_hash_dmf ( UInt imm );
 
 /* Calculate FCSR in fp32 mode. */
 extern UInt mips_dirtyhelper_calculate_FCSR_fp32 ( void* guest_state, UInt fs,

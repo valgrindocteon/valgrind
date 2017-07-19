@@ -610,6 +610,13 @@ extern void md5_hash(ULong rt, UInt imm)
       vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
       __asm__ volatile("dmtc2 %[rt], 0x4B" : : [rt] "r" (rt));
       break;
+
+   /* Start MD5 Hash */
+   case 0x4047:
+      vex_printf("rt value: 0x%llx imm 0x%x\n", rt, imm);
+      __asm__ volatile("dmtc2 %[rt], 0x4047" : : [rt] "r" (rt));
+      break;
+
    default:
       vex_printf("invalid imm found: 0x%x\n", imm);
    }
