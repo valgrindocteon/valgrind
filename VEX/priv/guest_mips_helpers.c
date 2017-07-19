@@ -615,6 +615,22 @@ extern void md5_hash(ULong rt, UInt imm)
    }
 }
 
+extern ULong md5_hash_dmf(UInt imm)
+{
+   ULong ret = 0;
+   switch (imm) {
+   /* Load Data into HSH Unit (narrow mode) */
+   case 0x0250:
+      vex_printf("dmf imm 0x%x\n", imm);
+      __asm__ volatile("dmfc2 %[ret], 0x0250" : [ret] "=r" (ret) : :);
+      break;
+   default:
+      vex_printf("invalid imm found: 0x%x\n", imm);
+   }
+
+   return ret;
+}
+
 /* TODO: Add cases for all fpu instructions because all fpu instructions are
          change the value of FCSR register. */
 extern UInt mips_dirtyhelper_calculate_FCSR_fp32 ( void* gs, UInt fs, UInt ft,

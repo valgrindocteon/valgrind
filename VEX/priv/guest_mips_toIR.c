@@ -2308,6 +2308,20 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
                vex_printf("DMTC2 with DMT 5 statement added\n");
                break;
             }
+            case 0x01: {  /* DMFC2 rt, imm */
+               IRDirty *d;
+               IRTemp   val  = newTemp(ty);
+
+               DIP("dmfc2 r%u, 0x%x\n", regRt, imm);
+               d = unsafeIRDirty_1_N(val, 0 /* regparms */, "md5_hash_dmf", &md5_hash_dmf,
+                     mkIRExprVec_1(mkU32(imm)));
+
+               stmt(IRStmt_Dirty(d));
+               putIReg(regRt, mkexpr(val));
+
+               vex_printf("DMFC2 with DMF 1 statement added\n");
+               break;
+            }
             default:
                return False;
          }
