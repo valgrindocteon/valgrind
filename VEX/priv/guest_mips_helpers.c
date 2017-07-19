@@ -626,6 +626,24 @@ extern ULong md5_hash_dmf(UInt imm)
 {
    ULong ret = 0;
    switch (imm) {
+   /* Load IV from HSH Unit (narrow mode) */
+   case 0x0048:
+      vex_printf("dmf imm 0x%x\n", imm);
+      __asm__ volatile("dmfc2 %[ret], 0x0048" : [ret] "=r" (ret) : :);
+      break;
+   case 0x0049:
+      vex_printf("dmf imm 0x%x\n", imm);
+      __asm__ volatile("dmfc2 %[ret], 0x0049" : [ret] "=r" (ret) : :);
+      break;
+   case 0x004A:
+      vex_printf("dmf imm 0x%x\n", imm);
+      __asm__ volatile("dmfc2 %[ret], 0x004A" : [ret] "=r" (ret) : :);
+      break;
+   case 0x004B:
+      vex_printf("dmf imm 0x%x\n", imm);
+      __asm__ volatile("dmfc2 %[ret], 0x004B" : [ret] "=r" (ret) : :);
+      break;
+
    /* Load Data into HSH Unit (narrow mode) */
    case 0x0250:
       vex_printf("dmf imm 0x%x\n", imm);
