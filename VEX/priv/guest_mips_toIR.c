@@ -2280,13 +2280,25 @@ static void mips_load_store64(IRTemp op1addr, IRTemp new_val,
       putIReg(rd, mkexpr(old_mem));
 }
 
+static IRExpr * cavium_cop2_helper(IRExpr *imm) {
+   IRExpr **args, *call;
+
+   args = mkIRExprVec_1(imm);
+   call = mkIRExprCCall(Ity_I64, 0 /*regparm*/, "md5_hash_dmf",
+                        &md5_hash_dmf, args);
+
+   /* Nothing is excluded from definedness checking. */
+   call->Iex.CCall.cee->mcx_mask = 0;
+
+   return call;
+}
+
 static Bool dis_instr_CVM_COP2 ( UInt theInstr )
 {
    UInt   opc1     = get_opcode(theInstr);
    UInt   opc2     = get_fmt(theInstr);
    UInt   regRt    = get_rt(theInstr);
    UInt   imm      = get_imm(theInstr);
-   IRType ty       = mode64? Ity_I64 : Ity_I32;
 
    switch(opc1) {
       case 0x12: {
@@ -2302,14 +2314,8 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
                break;
             }
             case 0x01: {  /* DMFC2 rt, imm */
-               IRDirty *d;
-               IRTemp   val  = newTemp(ty);
-
                DIP("dmfc2 r%u, 0x%x\n", regRt, imm);
-               d = unsafeIRDirty_1_N(val, 0 /* regparms */, "md5_hash_dmf",
-                     &md5_hash_dmf, mkIRExprVec_1(mkU32(imm)));
-               stmt(IRStmt_Dirty(d));
-               putIReg(regRt, mkexpr(val));
+               putIReg(regRt, cavium_cop2_helper(mkU32(imm)));
                break;
             }
             default:
