@@ -618,6 +618,11 @@ extern void md5_hash(ULong rt, UInt imm)
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x82);
       break;
 
+   /* Load IV into 3DES Unit */
+   case 0x0084:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x84);
+      break;
+
    /* Load Result into 3DES Unit */
    case 0x0098:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x98);
@@ -696,6 +701,11 @@ extern void md5_hash(ULong rt, UInt imm)
       break;
    case 0x0247:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x247);
+      break;
+
+   /* Load IV into HSH Unit (wide mode) */
+   case 0x0250:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x250);
       break;
 
    /* Load FSM to ZUC Unit or Load IV to HSH Unit */
