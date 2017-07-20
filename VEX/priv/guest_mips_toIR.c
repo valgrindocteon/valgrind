@@ -2295,17 +2295,10 @@ static IRExpr * cavium_cop2_helper(IRExpr *imm) {
 
 static Bool dis_instr_CVM_COP2 ( UInt theInstr )
 {
-   UInt  opc1     = get_opcode(theInstr);
-   UInt  opc2     = get_fmt(theInstr);
+   UInt   opc1     = get_opcode(theInstr);
+   UInt   opc2     = get_fmt(theInstr);
    UInt   regRt    = get_rt(theInstr);
    UInt   imm      = get_imm(theInstr);
-
-   IRType ty       = mode64? Ity_I64 : Ity_I32;
-   IRTemp tmp      = newTemp(ty);
-   IRTemp tmpRt    = newTemp(ty);
-   IRTemp t1       = newTemp(ty);
-   UInt size;
-   assign(tmpRt, getIReg(regRt));
 
    switch(opc1) {
       case 0x12: {
@@ -2318,13 +2311,11 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
                      mkIRExprVec_2(getIReg(regRt), mkU32(imm)));
 
                stmt(IRStmt_Dirty(d));
-               vex_printf("DMTC2 with DMT 5 statement added\n");
                break;
             }
             case 0x01: {  /* DMFC2 rt, imm */
                DIP("dmfc2 r%u, 0x%x\n", regRt, imm);
                putIReg(regRt, cavium_cop2_helper(mkU32(imm)));
-               vex_printf("DMFC2 with DMF 1 statement added\n");
                break;
             }
             default:
@@ -14477,16 +14468,16 @@ static DisResult disInstr_MIPS_WRK ( Bool(*resteerOkFn) (/*opaque */void *,
       case 0x1:
          if (VEX_MIPS_COMP_ID(archinfo->hwcaps) == VEX_PRID_COMP_CAVIUM) {
             if (dis_instr_CVM_COP2(cins)) {
-               break; // NOT goto decode_failure;
+               /* instruction decoded successfully, goto next instruction */
+               break;
             } else {
-               vex_printf("DMTC2 with DMT 5 coming here - COP2 insn emulation failed.\n");
-               // goto decode_failure;
+               vex_printf("DMTC2/DMFC2 coming here - COP2 insn emulation failed.\n");
+               goto decode_failure;
             }
          } else {
-            vex_printf("DMTC2 with DMT 5 identified. Not a cavium board. exiting\n");
-            // goto decode_failure;
+            vex_printf("DMTC2/DMFC2 identified. Not a cavium board. exiting\n");
+            goto decode_failure;
          }
-         goto decode_failure;
       default:
          vex_printf("unknown COP2 function. exiting\n");
          goto decode_failure;
