@@ -605,6 +605,75 @@ extern void md5_hash(ULong rt, UInt imm)
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4B);
       break;
 
+   /* Load IV into SMS4 Unit */
+   case 0x0102:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x102);
+      break;
+   case 0x0103:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x103);
+      break;
+
+   /* Load Key into SMS4 or AES Unit */
+   case 0x0104:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x104);
+      break;
+   case 0x0105:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x105);
+      break;
+
+   /* Load Key into AES Unit */
+   case 0x0106:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x106);
+      break;
+   case 0x0107:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x107);
+      break;
+
+   /* AES CBC Encrypt (part 1) */
+   case 0x0108:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x108);
+      break;
+
+   /* SMS4 Encrypt (part 1) */
+   case 0x010A:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10A);
+      break;
+
+   /* SMS4 CBC Decrypt (part 1) */
+   case 0x010C:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10C);
+      break;
+
+   /* SMS4 Decrypt (part 1) */
+   case 0x010E:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10E);
+      break;
+
+   /* Load Key Length into AES Unit */
+   case 0x0110:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x110);
+      break;
+
+   /* AES CBC Encrypt (part 2) */
+   case 0x3109:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x3109);
+      break;
+
+   /* AES Encrypt (part 2) */
+   case 0x310B:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310B);
+      break;
+
+   /* AES CBC Decrypt (part 2) */
+   case 0x310D:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310D);
+      break;
+
+   /* AES Decrypt (part 2) */
+   case 0x310F:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310F);
+      break;
+
    /* Start MD5 Hash */
    case 0x4047:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4047);
@@ -631,6 +700,14 @@ extern ULong md5_hash_dmf(UInt imm)
       break;
    case 0x004B:
       ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4B);
+      break;
+
+   /* Load Result/Input from CAMELLIA Unit */
+   case 0x0100:
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x100);
+      break;
+   case 0x0101:
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x101);
       break;
 
    /* Load Data into HSH Unit (narrow mode) */
