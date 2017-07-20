@@ -605,6 +605,24 @@ extern void md5_hash(ULong rt, UInt imm)
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4B);
       break;
 
+   /* Load Key into KASUMI or 3DES Unit */
+   case 0x0080:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x80);
+      break;
+   case 0x0081:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x81);
+      break;
+
+   /* Load Key into 3DES Unit */
+   case 0x0082:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x82);
+      break;
+
+   /* Load Result into 3DES Unit */
+   case 0x0098:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x98);
+      break;
+
    /* Load IV into SMS4 Unit */
    case 0x0102:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x102);
@@ -654,6 +672,45 @@ extern void md5_hash(ULong rt, UInt imm)
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x110);
       break;
 
+   /* Load LFSR to ZUC Unit */
+   case 0x0240:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x240);
+      break;
+   case 0x0241:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x241);
+      break;
+   case 0x0242:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x242);
+      break;
+   case 0x0243:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x243);
+      break;
+   case 0x0244:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x244);
+      break;
+   case 0x0245:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x245);
+      break;
+   case 0x0246:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x246);
+      break;
+   case 0x0247:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x247);
+      break;
+
+   /* Load FSM to ZUC Unit or Load IV to HSH Unit */
+   case 0x0251:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x251);
+      break;
+   case 0x0252:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x252);
+      break;
+
+   /* Load IV into HSH Unit (wide mode) */
+   case 0x0253:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x253);
+      break;
+
    /* AES CBC Encrypt (part 2) */
    case 0x3109:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x3109);
@@ -674,9 +731,74 @@ extern void md5_hash(ULong rt, UInt imm)
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310F);
       break;
 
+   /* SMS4 CBC Encrypt (part 2) */
+   case 0x3119:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x3119);
+      break;
+
+   /* SMS4 Encrypt (part 2) */
+   case 0x311B:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311B);
+      break;
+
+   /* SMS4 CBC Decrypt (part 2) */
+   case 0x311D:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311D);
+      break;
+
+   /* SMS4 Decrypt (part 2) */
+   case 0x311F:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311F);
+      break;
+
    /* Start MD5 Hash */
    case 0x4047:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4047);
+      break;
+
+   /* Start SNOW3G Keystream */
+   case 0x404D:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x404D);
+      break;
+
+   /* Continue SNOW3G Keystream */
+   case 0x404E:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x404E);
+      break;
+
+   /* Start SHA-1 Hash */
+   case 0x4057:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4057);
+      break;
+
+   /* 3DES CBC Encrypt */
+   case 0x4088:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4088);
+      break;
+
+   /* KASUMI CBC Encrypt */
+   case 0x4089:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4089);
+      break;
+
+   /* 3DES Encrypt */
+   case 0x408A:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408A);
+      break;
+
+   /* KASUMI Encrypt */
+   case 0x408B:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408B);
+      break;
+
+   /* 3DES CBC Decrypt */
+   case 0x408C:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408C);
+      break;
+
+   /* 3DES Decrypt */
+   case 0x408E:
+      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408E);
       break;
 
    default:
@@ -700,6 +822,11 @@ extern ULong md5_hash_dmf(UInt imm)
       break;
    case 0x004B:
       ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4B);
+      break;
+
+   /* Load Result from KASUMI Unit */
+   case 0x0088:
+      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x88);
       break;
 
    /* Load Result/Input from CAMELLIA Unit */
