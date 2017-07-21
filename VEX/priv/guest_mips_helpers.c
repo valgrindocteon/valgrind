@@ -588,6 +588,10 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    ASM_VOLATILE_DMTC2(0x4A);
    ASM_VOLATILE_DMTC2(0x4B);
 
+   /* Load Data into SHA-3 Unit */
+   ASM_VOLATILE_DMTC2(0x50);
+   ASM_VOLATILE_DMTC2(0x51);
+
    /* Load Multiplier into GFM Unit Reflect */
    ASM_VOLATILE_DMTC2(0x58);
    ASM_VOLATILE_DMTC2(0x59);
@@ -719,6 +723,29 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load Polynomial into GFM Unit */
    ASM_VOLATILE_DMTC2(0x25E);
 
+   /* Exclusive-Or Data in SHA-3 Unit */
+   ASM_VOLATILE_DMTC2(0x2C0);
+   ASM_VOLATILE_DMTC2(0x2C1);
+   ASM_VOLATILE_DMTC2(0x2C2);
+   ASM_VOLATILE_DMTC2(0x2C3);
+   ASM_VOLATILE_DMTC2(0x2C4);
+   ASM_VOLATILE_DMTC2(0x2C5);
+   ASM_VOLATILE_DMTC2(0x2C6);
+   ASM_VOLATILE_DMTC2(0x2C7);
+   ASM_VOLATILE_DMTC2(0x2C8);
+   ASM_VOLATILE_DMTC2(0x2C9);
+   ASM_VOLATILE_DMTC2(0x2CA);
+   ASM_VOLATILE_DMTC2(0x2CB);
+   ASM_VOLATILE_DMTC2(0x2CC);
+   ASM_VOLATILE_DMTC2(0x2CD);
+   ASM_VOLATILE_DMTC2(0x2CE);
+   ASM_VOLATILE_DMTC2(0x2CF);
+   ASM_VOLATILE_DMTC2(0x2D0);
+   ASM_VOLATILE_DMTC2(0x2D1);
+   ASM_VOLATILE_DMTC2(0x2D2);
+   ASM_VOLATILE_DMTC2(0x2D3);
+   ASM_VOLATILE_DMTC2(0x2D4);
+
    /* Load Length into CRC Unit */
    ASM_VOLATILE_DMTC2(0x1202);
 
@@ -772,6 +799,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 
    /* Continue SNOW3G Keystream */
    ASM_VOLATILE_DMTC2(0x404E);
+
+   /* SHA-3 KECCAK-P */
+   ASM_VOLATILE_DMTC2(0x4052);
 
    /* Continue ZUC Keystream and 128-EIA3 MAC */
    ASM_VOLATILE_DMTC2(0x4056);
@@ -838,6 +868,9 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    ASM_VOLATILE_DMFC2(0x4A);
    ASM_VOLATILE_DMFC2(0x4B);
 
+   /* Load Data from SHA-3 Unit */
+   ASM_VOLATILE_DMFC2(0x50);
+
    /* Load Result/Input from GFM Unit Reflected */
    ASM_VOLATILE_DMFC2(0x5A);
    ASM_VOLATILE_DMFC2(0x5B);
@@ -901,6 +934,9 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    ASM_VOLATILE_DMFC2(0x24C);
    ASM_VOLATILE_DMFC2(0x24D);
    ASM_VOLATILE_DMFC2(0x24E);
+
+   /* Load Data from SHA-3 Unit */
+   ASM_VOLATILE_DMFC2(0x24F);
 
    /* Load IV from HSH Unit (wide mode) */
    ASM_VOLATILE_DMFC2(0x250);
