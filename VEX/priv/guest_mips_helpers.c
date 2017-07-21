@@ -559,14 +559,14 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
                     : "t0", "$f24", "$f26"                              \
                    );
 
-#define ASM_VOLATILE_COP2_READ_REG(inst, imm)                           \
+#define ASM_VOLATILE_DMTC2(imm)                                         \
   case imm:                                                             \
-  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));              \
+  __asm__ volatile("dmtc2 %[rt], "#imm : : [rt] "r" (rt));              \
   break;
 
-#define ASM_VOLATILE_COP2_WRITE_REG(inst, imm)                          \
+#define ASM_VOLATILE_DMFC2(imm)                                         \
   case imm:                                                             \
-  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) :);             \
+  __asm__ volatile("dmfc2 %[rt], "#imm : [rt] "=r" (rt) :);             \
   break;
 
 extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
@@ -574,133 +574,133 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* dmtc2 - double word move to coprocessor 2 */
    switch (imm) {
    /* Load Data into HSH Unit (narrow mode) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x40);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x41);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x42);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x43);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x44);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x45);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x46);
+   ASM_VOLATILE_DMTC2(0x40);
+   ASM_VOLATILE_DMTC2(0x41);
+   ASM_VOLATILE_DMTC2(0x42);
+   ASM_VOLATILE_DMTC2(0x43);
+   ASM_VOLATILE_DMTC2(0x44);
+   ASM_VOLATILE_DMTC2(0x45);
+   ASM_VOLATILE_DMTC2(0x46);
 
    /* Load IV into HSH Unit (narrow mode) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x48);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x49);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4A);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4B);
+   ASM_VOLATILE_DMTC2(0x48);
+   ASM_VOLATILE_DMTC2(0x49);
+   ASM_VOLATILE_DMTC2(0x4A);
+   ASM_VOLATILE_DMTC2(0x4B);
 
    /* Load Key into KASUMI or 3DES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x80);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x81);
+   ASM_VOLATILE_DMTC2(0x80);
+   ASM_VOLATILE_DMTC2(0x81);
 
    /* Load Key into 3DES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x82);
+   ASM_VOLATILE_DMTC2(0x82);
 
    /* Load IV into 3DES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x84);
+   ASM_VOLATILE_DMTC2(0x84);
 
    /* Load Result into 3DES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x98);
+   ASM_VOLATILE_DMTC2(0x98);
 
    /* Load IV into SMS4 Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x102);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x103);
+   ASM_VOLATILE_DMTC2(0x102);
+   ASM_VOLATILE_DMTC2(0x103);
 
    /* Load Key into SMS4 or AES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x104);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x105);
+   ASM_VOLATILE_DMTC2(0x104);
+   ASM_VOLATILE_DMTC2(0x105);
 
    /* Load Key into AES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x106);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x107);
+   ASM_VOLATILE_DMTC2(0x106);
+   ASM_VOLATILE_DMTC2(0x107);
 
    /* AES CBC Encrypt (part 1) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x108);
+   ASM_VOLATILE_DMTC2(0x108);
 
    /* SMS4 Encrypt (part 1) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10A);
+   ASM_VOLATILE_DMTC2(0x10A);
 
    /* SMS4 CBC Decrypt (part 1) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10C);
+   ASM_VOLATILE_DMTC2(0x10C);
 
    /* SMS4 Decrypt (part 1) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x10E);
+   ASM_VOLATILE_DMTC2(0x10E);
 
    /* Load Key Length into AES Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x110);
+   ASM_VOLATILE_DMTC2(0x110);
 
    /* Load LFSR to ZUC Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x240);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x241);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x242);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x243);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x244);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x245);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x246);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x247);
+   ASM_VOLATILE_DMTC2(0x240);
+   ASM_VOLATILE_DMTC2(0x241);
+   ASM_VOLATILE_DMTC2(0x242);
+   ASM_VOLATILE_DMTC2(0x243);
+   ASM_VOLATILE_DMTC2(0x244);
+   ASM_VOLATILE_DMTC2(0x245);
+   ASM_VOLATILE_DMTC2(0x246);
+   ASM_VOLATILE_DMTC2(0x247);
 
    /* Load IV into HSH Unit (wide mode) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x250);
+   ASM_VOLATILE_DMTC2(0x250);
 
    /* Load FSM to ZUC Unit or Load IV to HSH Unit */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x251);
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x252);
+   ASM_VOLATILE_DMTC2(0x251);
+   ASM_VOLATILE_DMTC2(0x252);
 
    /* Load IV into HSH Unit (wide mode) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x253);
+   ASM_VOLATILE_DMTC2(0x253);
 
    /* AES CBC Encrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x3109);
+   ASM_VOLATILE_DMTC2(0x3109);
 
    /* AES Encrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310B);
+   ASM_VOLATILE_DMTC2(0x310B);
 
    /* AES CBC Decrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310D);
+   ASM_VOLATILE_DMTC2(0x310D);
 
    /* AES Decrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x310F);
+   ASM_VOLATILE_DMTC2(0x310F);
 
    /* SMS4 CBC Encrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x3119);
+   ASM_VOLATILE_DMTC2(0x3119);
 
    /* SMS4 Encrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311B);
+   ASM_VOLATILE_DMTC2(0x311B);
 
    /* SMS4 CBC Decrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311D);
+   ASM_VOLATILE_DMTC2(0x311D);
 
    /* SMS4 Decrypt (part 2) */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x311F);
+   ASM_VOLATILE_DMTC2(0x311F);
 
    /* Start MD5 Hash */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4047);
+   ASM_VOLATILE_DMTC2(0x4047);
 
    /* Start SNOW3G Keystream */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x404D);
+   ASM_VOLATILE_DMTC2(0x404D);
 
    /* Continue SNOW3G Keystream */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x404E);
+   ASM_VOLATILE_DMTC2(0x404E);
 
    /* Start SHA-1 Hash */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4057);
+   ASM_VOLATILE_DMTC2(0x4057);
 
    /* 3DES CBC Encrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4088);
+   ASM_VOLATILE_DMTC2(0x4088);
 
    /* KASUMI CBC Encrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x4089);
+   ASM_VOLATILE_DMTC2(0x4089);
 
    /* 3DES Encrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408A);
+   ASM_VOLATILE_DMTC2(0x408A);
 
    /* KASUMI Encrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408B);
+   ASM_VOLATILE_DMTC2(0x408B);
 
    /* 3DES CBC Decrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408C);
+   ASM_VOLATILE_DMTC2(0x408C);
 
    /* 3DES Decrypt */
-   ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x408E);
+   ASM_VOLATILE_DMTC2(0x408E);
 
    default:
       vex_printf("md5_hash: invalid imm found: 0x%x\n", imm);
@@ -714,20 +714,20 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    /* dmfc2 - double word move from coprocessor 2 */
    switch (imm) {
    /* Load IV from HSH Unit (narrow mode) */
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x48);
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x49);
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4A);
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x4B);
+   ASM_VOLATILE_DMFC2(0x48);
+   ASM_VOLATILE_DMFC2(0x49);
+   ASM_VOLATILE_DMFC2(0x4A);
+   ASM_VOLATILE_DMFC2(0x4B);
 
    /* Load Result from KASUMI Unit */
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x88);
+   ASM_VOLATILE_DMFC2(0x88);
 
    /* Load Result/Input from CAMELLIA Unit */
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x100);
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x101);
+   ASM_VOLATILE_DMFC2(0x100);
+   ASM_VOLATILE_DMFC2(0x101);
 
    /* Load Data into HSH Unit (narrow mode) */
-   ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x250);
+   ASM_VOLATILE_DMFC2(0x250);
 
    default:
       vex_printf("md5_hash_dmf: invalid imm found: 0x%x\n", imm);
