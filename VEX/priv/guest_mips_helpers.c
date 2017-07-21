@@ -628,6 +628,30 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load Key Length into AES Unit */
    ASM_VOLATILE_DMTC2(0x110);
 
+   /* Load IV into CRC Unit */
+   ASM_VOLATILE_DMTC2(0x201);
+
+   /* CRC for a Byte */
+   ASM_VOLATILE_DMTC2(0x204);
+
+   /* CRC for a Halfword */
+   ASM_VOLATILE_DMTC2(0x205);
+
+   /* CRC for a Word */
+   ASM_VOLATILE_DMTC2(0x206);
+
+   /* Load IV into CRC Unit Reflected */
+   ASM_VOLATILE_DMTC2(0x211);
+
+   /* CRC for a Byte Reflected */
+   ASM_VOLATILE_DMTC2(0x214);
+
+   /* CRC for a Halfword Reflected */
+   ASM_VOLATILE_DMTC2(0x215);
+
+   /* CRC for a Word Reflected */
+   ASM_VOLATILE_DMTC2(0x216);
+
    /* Load LFSR to ZUC Unit */
    ASM_VOLATILE_DMTC2(0x240);
    ASM_VOLATILE_DMTC2(0x241);
@@ -647,6 +671,21 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 
    /* Load IV into HSH Unit (wide mode) */
    ASM_VOLATILE_DMTC2(0x253);
+
+   /* Load Length into CRC Unit */
+   ASM_VOLATILE_DMTC2(0x1202);
+
+   /* CRC for a Double-word */
+   ASM_VOLATILE_DMTC2(0x1207);
+
+   /* CRC for Variable Length */
+   ASM_VOLATILE_DMTC2(0x1208);
+
+   /* CRC for a Double-word Reflected */
+   ASM_VOLATILE_DMTC2(0x1217);
+
+   /* CRC for Variable Length Reflected */
+   ASM_VOLATILE_DMTC2(0x1218);
 
    /* AES CBC Encrypt (part 2) */
    ASM_VOLATILE_DMTC2(0x3109);
@@ -702,6 +741,12 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* 3DES Decrypt */
    ASM_VOLATILE_DMTC2(0x408E);
 
+   /* Load Polynomial into CRC Unit */
+   ASM_VOLATILE_DMTC2(0x4200);
+
+   /* Load Polynomial into CRC Unit Reflected */
+   ASM_VOLATILE_DMTC2(0x4210);
+
    default:
       vex_printf("md5_hash: invalid imm found: 0x%x\n", imm);
    }
@@ -725,6 +770,18 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    /* Load Result/Input from CAMELLIA Unit */
    ASM_VOLATILE_DMFC2(0x100);
    ASM_VOLATILE_DMFC2(0x101);
+
+   /* Load Polynomial from CRC Unit */
+   ASM_VOLATILE_DMFC2(0x200);
+
+   /* Load IV from CRC Unit */
+   ASM_VOLATILE_DMFC2(0x201);
+
+   /* Load Length from CRC Unit */
+   ASM_VOLATILE_DMFC2(0x202);
+
+   /* Load IV from CRC Unit Reflected */
+   ASM_VOLATILE_DMFC2(0x203);
 
    /* Load Data into HSH Unit (narrow mode) */
    ASM_VOLATILE_DMFC2(0x250);
