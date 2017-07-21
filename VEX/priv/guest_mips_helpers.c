@@ -571,7 +571,7 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
 
 #define ASM_VOLATILE_COP2_WRITE_REG(inst, imm)                          \
   case imm:								\
-  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) : :);		\
+  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) :);		\
   break;
 
 extern void md5_hash(ULong rt, UInt imm)
