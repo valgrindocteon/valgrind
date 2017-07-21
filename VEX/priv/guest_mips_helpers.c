@@ -773,6 +773,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Continue SNOW3G Keystream */
    ASM_VOLATILE_DMTC2(0x404E);
 
+   /* Continue ZUC Keystream and 128-EIA3 MAC */
+   ASM_VOLATILE_DMTC2(0x4056);
+
    /* Start SHA-1 Hash */
    ASM_VOLATILE_DMTC2(0x4057);
 
@@ -922,6 +925,9 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
 
    /* Start SNOW3G Keystream */
    ASM_VOLATILE_DMFC2(0x404D);
+
+   /* Start ZUC Keystream */
+   ASM_VOLATILE_DMFC2(0x4055);
 
    default:
       vex_printf("md5_hash_dmf: invalid imm found: 0x%x\n", imm);
