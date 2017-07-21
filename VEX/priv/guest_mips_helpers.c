@@ -911,6 +911,9 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    /* Load Polynomial from GFM Unit */
    ASM_VOLATILE_DMFC2(0x25E);
 
+   /* Start SNOW3G Keystream */
+   ASM_VOLATILE_DMFC2(0x404D);
+
    default:
       vex_printf("md5_hash_dmf: invalid imm found: 0x%x\n", imm);
    }
