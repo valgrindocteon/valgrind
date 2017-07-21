@@ -564,13 +564,21 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
 #define ASM_VOLATILE_COP2_WRITE_REG(inst, imm)                          \
   __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) : :);
 
+#define ASM_VOLATILE_COP2_READ_REG_1(inst, imm)				\
+  case imm:								\
+  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));		\
+  break;
+
+#define ASM_VOLATILE_COP2_WRITE_REG_1(inst, imm)                          \
+  case imm:								\
+  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) : :);		\
+  break;
+
 extern void md5_hash(ULong rt, UInt imm)
 {
    switch (imm) {
-   /* Load Data into HSH Unit (narrow mode) */
-   case 0x0040:
-      ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x40);
-      break;
+      /* Load Data into HSH Unit (narrow mode) */
+      ASM_VOLATILE_COP2_READ_REG_1(dmtc2, 0x40);
    case 0x0041:
       ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x41);
       break;
@@ -820,10 +828,8 @@ extern ULong md5_hash_dmf(UInt imm)
 {
    ULong rt = 0;
    switch (imm) {
-   /* Load IV from HSH Unit (narrow mode) */
-   case 0x0048:
-      ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x48);
-      break;
+      /* Load IV from HSH Unit (narrow mode) */
+      ASM_VOLATILE_COP2_WRITE_REG_1(dmfc2, 0x48);
    case 0x0049:
       ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x49);
       break;
