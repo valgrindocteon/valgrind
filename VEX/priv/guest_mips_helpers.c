@@ -608,7 +608,7 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load Result into 3DES/KASUMI Unit */
    ASM_VOLATILE_DMTC2(0x98);
 
-   /* Load Result/Input into AES/SMS4 Unit */
+   /* Load Result/Input into AES/SMS4/CAMELLIA Unit */
    ASM_VOLATILE_DMTC2(0x100);
    ASM_VOLATILE_DMTC2(0x101);
 
@@ -638,6 +638,12 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 
    /* Load Key Length into AES Unit */
    ASM_VOLATILE_DMTC2(0x110);
+
+   /* Perform CAMELLIA FL Function */
+   ASM_VOLATILE_DMTC2(0x115);
+
+   /* Perform CAMELLIA FL^-11 Functio */
+   ASM_VOLATILE_DMTC2(0x116);
 
    /* Load IV into CRC Unit */
    ASM_VOLATILE_DMTC2(0x201);
@@ -739,6 +745,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 
    /* AES Decrypt (part 2) */
    ASM_VOLATILE_DMTC2(0x310F);
+
+   /* Perform One CAMELLIA Round */
+   ASM_VOLATILE_DMTC2(0x3114);
 
    /* SMS4 CBC Encrypt (part 2) */
    ASM_VOLATILE_DMTC2(0x3119);
