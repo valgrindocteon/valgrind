@@ -605,7 +605,7 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load IV into 3DES Unit */
    ASM_VOLATILE_DMTC2(0x84);
 
-   /* Load Result into 3DES Unit */
+   /* Load Result into 3DES/KASUMI Unit */
    ASM_VOLATILE_DMTC2(0x98);
 
    /* Load Result/Input into AES Unit */
@@ -830,7 +830,7 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    ASM_VOLATILE_DMFC2(0x5A);
    ASM_VOLATILE_DMFC2(0x5B);
 
-   /* Load Key from 3DES Unit */
+   /* Load Key from KASUMI/3DES Unit */
    ASM_VOLATILE_DMFC2(0x80);
    ASM_VOLATILE_DMFC2(0x81);
    ASM_VOLATILE_DMFC2(0x82);
