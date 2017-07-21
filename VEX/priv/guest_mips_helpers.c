@@ -663,7 +663,8 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* CRC for a Word Reflected */
    ASM_VOLATILE_DMTC2(0x216);
 
-   /* Load LFSR to ZUC Unit */
+   /* Load Load Data into HSH Unit (wide mode)
+      as well Load LFSR to SNOW3g/ZUC Unit */
    ASM_VOLATILE_DMTC2(0x240);
    ASM_VOLATILE_DMTC2(0x241);
    ASM_VOLATILE_DMTC2(0x242);
@@ -672,6 +673,15 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    ASM_VOLATILE_DMTC2(0x245);
    ASM_VOLATILE_DMTC2(0x246);
    ASM_VOLATILE_DMTC2(0x247);
+
+   /* Load Data into HSH Unit (wide mode) */
+   ASM_VOLATILE_DMTC2(0x248);
+   ASM_VOLATILE_DMTC2(0x249);
+   ASM_VOLATILE_DMTC2(0x24A);
+   ASM_VOLATILE_DMTC2(0x24B);
+   ASM_VOLATILE_DMTC2(0x24C);
+   ASM_VOLATILE_DMTC2(0x24D);
+   ASM_VOLATILE_DMTC2(0x24E);
 
    /* Load IV into HSH Unit (wide mode) */
    ASM_VOLATILE_DMTC2(0x250);
@@ -682,6 +692,12 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 
    /* Load IV into HSH Unit (wide mode) */
    ASM_VOLATILE_DMTC2(0x253);
+
+   /* Load IV into HSH Unit (wide mode) */
+   ASM_VOLATILE_DMTC2(0x254);
+   ASM_VOLATILE_DMTC2(0x255);
+   ASM_VOLATILE_DMTC2(0x256);
+   ASM_VOLATILE_DMTC2(0x257);
 
    /* Load Multiplier into GFM Unit */
    ASM_VOLATILE_DMTC2(0x258);
@@ -742,6 +758,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Start SNOW3G Keystream */
    ASM_VOLATILE_DMTC2(0x404D);
 
+   /* Start SHA-256 Hash */
+   ASM_VOLATILE_DMTC2(0x404F);
+
    /* Continue SNOW3G Keystream */
    ASM_VOLATILE_DMTC2(0x404E);
 
@@ -775,6 +794,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load Polynomial into CRC Unit Reflected */
    ASM_VOLATILE_DMTC2(0x4210);
 
+   /* Start SHA-512 Hash */
+   ASM_VOLATILE_DMTC2(0x424F);
+
    /* XOR and GF Multiply */
    ASM_VOLATILE_DMTC2(0x425D);
 
@@ -789,6 +811,15 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
 
    /* dmfc2 - double word move from coprocessor 2 */
    switch (imm) {
+   /* Load Data from HSH Unit (narrow mode) */
+   ASM_VOLATILE_DMFC2(0x40);
+   ASM_VOLATILE_DMFC2(0x41);
+   ASM_VOLATILE_DMFC2(0x42);
+   ASM_VOLATILE_DMFC2(0x43);
+   ASM_VOLATILE_DMFC2(0x44);
+   ASM_VOLATILE_DMFC2(0x45);
+   ASM_VOLATILE_DMFC2(0x46);
+
    /* Load IV from HSH Unit (narrow mode) */
    ASM_VOLATILE_DMFC2(0x48);
    ASM_VOLATILE_DMFC2(0x49);
@@ -842,8 +873,32 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    /* Load IV from CRC Unit Reflected */
    ASM_VOLATILE_DMFC2(0x203);
 
-   /* Load Data into HSH Unit (narrow mode) */
+   /* Load Data from HSH Unit (wide mode) */
+   ASM_VOLATILE_DMFC2(0x240);
+   ASM_VOLATILE_DMFC2(0x241);
+   ASM_VOLATILE_DMFC2(0x242);
+   ASM_VOLATILE_DMFC2(0x243);
+   ASM_VOLATILE_DMFC2(0x244);
+   ASM_VOLATILE_DMFC2(0x245);
+   ASM_VOLATILE_DMFC2(0x246);
+   ASM_VOLATILE_DMFC2(0x247);
+   ASM_VOLATILE_DMFC2(0x248);
+   ASM_VOLATILE_DMFC2(0x249);
+   ASM_VOLATILE_DMFC2(0x24A);
+   ASM_VOLATILE_DMFC2(0x24B);
+   ASM_VOLATILE_DMFC2(0x24C);
+   ASM_VOLATILE_DMFC2(0x24D);
+   ASM_VOLATILE_DMFC2(0x24E);
+
+   /* Load IV from HSH Unit (wide mode) */
    ASM_VOLATILE_DMFC2(0x250);
+   ASM_VOLATILE_DMFC2(0x251);
+   ASM_VOLATILE_DMFC2(0x252);
+   ASM_VOLATILE_DMFC2(0x253);
+   ASM_VOLATILE_DMFC2(0x254);
+   ASM_VOLATILE_DMFC2(0x255);
+   ASM_VOLATILE_DMFC2(0x256);
+   ASM_VOLATILE_DMFC2(0x257);
 
    /* Load Multiplier from GFM Unit */
    ASM_VOLATILE_DMFC2(0x258);
