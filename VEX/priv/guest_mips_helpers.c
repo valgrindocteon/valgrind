@@ -569,8 +569,9 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
   __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) :);             \
   break;
 
-extern void md5_hash(ULong rt, UInt imm)
+extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
 {
+   /* dmtc2 - double word move to coprocessor 2 */
    switch (imm) {
    /* Load Data into HSH Unit (narrow mode) */
    ASM_VOLATILE_COP2_READ_REG(dmtc2, 0x40);
@@ -706,9 +707,11 @@ extern void md5_hash(ULong rt, UInt imm)
    }
 }
 
-extern ULong md5_hash_dmf(UInt imm)
+extern ULong cvm_move_from_cop2_helper(UInt imm)
 {
    ULong rt = 0;
+
+   /* dmfc2 - double word move from coprocessor 2 */
    switch (imm) {
    /* Load IV from HSH Unit (narrow mode) */
    ASM_VOLATILE_COP2_WRITE_REG(dmfc2, 0x48);

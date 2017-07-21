@@ -2295,9 +2295,10 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
                IRDirty *d;
 
                DIP("dmtc2 r%u, 0x%x\n", regRt, imm);
-               d = unsafeIRDirty_0_N(0 /* regparms */, "md5_hash", &md5_hash,
-                     mkIRExprVec_2(getIReg(regRt), mkU32(imm)));
-
+               d = unsafeIRDirty_0_N(0 /* regparms */,
+				     "cvm_move_to_cop2_helper",
+				     &cvm_move_to_cop2_helper,
+				     mkIRExprVec_2(getIReg(regRt), mkU32(imm)));
                stmt(IRStmt_Dirty(d));
                break;
             }
@@ -2306,8 +2307,10 @@ static Bool dis_instr_CVM_COP2 ( UInt theInstr )
                IRTemp   val  = newTemp(ty);
 
                DIP("dmfc2 r%u, 0x%x\n", regRt, imm);
-               d = unsafeIRDirty_1_N(val, 0 /* regparms */, "md5_hash_dmf",
-                     &md5_hash_dmf, mkIRExprVec_1(mkU32(imm)));
+               d = unsafeIRDirty_1_N(val, 0 /* regparms */,
+				     "cvm_move_from_cop2_helper",
+				     &cvm_move_from_cop2_helper,
+				     mkIRExprVec_1(mkU32(imm)));
                stmt(IRStmt_Dirty(d));
                putIReg(regRt, mkexpr(val));
                break;
