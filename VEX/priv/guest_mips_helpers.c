@@ -764,7 +764,15 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    ASM_VOLATILE_DMFC2(0x4A);
    ASM_VOLATILE_DMFC2(0x4B);
 
-   /* Load Result from KASUMI Unit */
+   /* Load Key from 3DES Unit */
+   ASM_VOLATILE_DMFC2(0x80);
+   ASM_VOLATILE_DMFC2(0x81);
+   ASM_VOLATILE_DMFC2(0x82);
+
+   /* Load IV from 3DES Unit */
+   ASM_VOLATILE_DMFC2(0x84);
+
+   /* Load Result from 3DES/KASUMI Unit */
    ASM_VOLATILE_DMFC2(0x88);
 
    /* Load Result/Input from CAMELLIA Unit */
