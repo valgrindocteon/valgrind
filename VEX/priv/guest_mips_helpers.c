@@ -558,20 +558,15 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
                     : "r" (&(addr[fs])), "r" (&(addr[ft])), "r" (fcsr)  \
                     : "t0", "$f24", "$f26"                              \
                    );
-#define ASM_VOLATILE_COP2_READ_REG_1(inst, imm)                           \
-  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));
 
-#define ASM_VOLATILE_COP2_WRITE_REG_1(inst, imm)                          \
-  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) : :);
-
-#define ASM_VOLATILE_COP2_READ_REG(inst, imm)				\
-  case imm:								\
-  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));		\
+#define ASM_VOLATILE_COP2_READ_REG(inst, imm)                           \
+  case imm:                                                             \
+  __asm__ volatile(#inst" %[rt], "#imm : : [rt] "r" (rt));              \
   break;
 
 #define ASM_VOLATILE_COP2_WRITE_REG(inst, imm)                          \
-  case imm:								\
-  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) :);		\
+  case imm:                                                             \
+  __asm__ volatile(#inst" %[rt], "#imm : [rt] "=r" (rt) :);             \
   break;
 
 extern void md5_hash(ULong rt, UInt imm)
