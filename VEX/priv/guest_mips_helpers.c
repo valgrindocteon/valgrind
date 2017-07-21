@@ -588,6 +588,13 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    ASM_VOLATILE_DMTC2(0x4A);
    ASM_VOLATILE_DMTC2(0x4B);
 
+   /* Load Multiplier into GFM Unit Reflect */
+   ASM_VOLATILE_DMTC2(0x58);
+   ASM_VOLATILE_DMTC2(0x59);
+
+   /* XOR into GFM Unit Reflected */
+   ASM_VOLATILE_DMTC2(0x5C);
+
    /* Load Key into KASUMI or 3DES Unit */
    ASM_VOLATILE_DMTC2(0x80);
    ASM_VOLATILE_DMTC2(0x81);
@@ -676,6 +683,20 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load IV into HSH Unit (wide mode) */
    ASM_VOLATILE_DMTC2(0x253);
 
+   /* Load Multiplier into GFM Unit */
+   ASM_VOLATILE_DMTC2(0x258);
+   ASM_VOLATILE_DMTC2(0x259);
+
+   /* Load Result/Input into GFM Unit */
+   ASM_VOLATILE_DMTC2(0x25A);
+   ASM_VOLATILE_DMTC2(0x25B);
+
+   /* XOR into GFM Unit */
+   ASM_VOLATILE_DMTC2(0x25C);
+
+   /* Load Polynomial into GFM Unit */
+   ASM_VOLATILE_DMTC2(0x25E);
+
    /* Load Length into CRC Unit */
    ASM_VOLATILE_DMTC2(0x1202);
 
@@ -727,6 +748,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Start SHA-1 Hash */
    ASM_VOLATILE_DMTC2(0x4057);
 
+   /* XOR and GF Multiply Reflected */
+   ASM_VOLATILE_DMTC2(0x405D);
+
    /* 3DES CBC Encrypt */
    ASM_VOLATILE_DMTC2(0x4088);
 
@@ -751,6 +775,9 @@ extern void cvm_move_to_cop2_helper(ULong rt, UInt imm)
    /* Load Polynomial into CRC Unit Reflected */
    ASM_VOLATILE_DMTC2(0x4210);
 
+   /* XOR and GF Multiply */
+   ASM_VOLATILE_DMTC2(0x425D);
+
    default:
       vex_printf("md5_hash: invalid imm found: 0x%x\n", imm);
    }
@@ -767,6 +794,10 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
    ASM_VOLATILE_DMFC2(0x49);
    ASM_VOLATILE_DMFC2(0x4A);
    ASM_VOLATILE_DMFC2(0x4B);
+
+   /* Load Result/Input from GFM Unit Reflected */
+   ASM_VOLATILE_DMFC2(0x5A);
+   ASM_VOLATILE_DMFC2(0x5B);
 
    /* Load Key from 3DES Unit */
    ASM_VOLATILE_DMFC2(0x80);
@@ -813,6 +844,17 @@ extern ULong cvm_move_from_cop2_helper(UInt imm)
 
    /* Load Data into HSH Unit (narrow mode) */
    ASM_VOLATILE_DMFC2(0x250);
+
+   /* Load Multiplier from GFM Unit */
+   ASM_VOLATILE_DMFC2(0x258);
+   ASM_VOLATILE_DMFC2(0x259);
+
+   /* Load Result/Input from GFM Unit */
+   ASM_VOLATILE_DMFC2(0x25A);
+   ASM_VOLATILE_DMFC2(0x25B);
+
+   /* Load Polynomial from GFM Unit */
+   ASM_VOLATILE_DMFC2(0x25E);
 
    default:
       vex_printf("md5_hash_dmf: invalid imm found: 0x%x\n", imm);
