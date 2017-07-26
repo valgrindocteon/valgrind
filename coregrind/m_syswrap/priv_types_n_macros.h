@@ -33,6 +33,7 @@
 #define __PRIV_TYPES_N_MACROS_H
 
 #include "pub_core_basics.h"    // Addr
+#include "pub_core_syscall.h"   // For SyscallArgT
 
 /* requires #include "pub_core_options.h" */
 /* requires #include "pub_core_signals.h" */
@@ -53,14 +54,14 @@
 typedef
    struct SyscallArgs {
       Word sysno;
-      UWord arg1;
-      UWord arg2;
-      UWord arg3;
-      UWord arg4;
-      UWord arg5;
-      UWord arg6;
-      UWord arg7;
-      UWord arg8;
+      SyscallArgT arg1;
+      SyscallArgT arg2;
+      SyscallArgT arg3;
+      SyscallArgT arg4;
+      SyscallArgT arg5;
+      SyscallArgT arg6;
+      SyscallArgT arg7;
+      SyscallArgT arg8;
    }
    SyscallArgs;
 

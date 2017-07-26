@@ -292,7 +292,7 @@ Off64T VG_(lseek) ( Int fd, Off64T offset, Int whence )
    return sr_isError(res) ? (-1) : result;
 #  else
    SysRes res = VG_(do_syscall3)(__NR_lseek, fd, offset, whence);
-   vg_assert(sizeof(Off64T) == sizeof(Word));
+   vg_assert(sizeof(Off64T) == sizeof(sr_Res(res)));
    return sr_isError(res) ? (-1) : sr_Res(res);
 #  endif
 #  elif defined(VGP_x86_darwin)

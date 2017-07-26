@@ -115,7 +115,7 @@ typedef __vki_restorefn_t __user *__vki_sigrestore_t;
 #define VKI_SIG_ERR     ((__vki_sighandler_t)-1)  /* error return from signal */
 
 #define _VKI_NSIG       128
-#define _VKI_NSIG_BPW   64
+#define _VKI_NSIG_BPW   (__SIZEOF_LONG__ * 8)
 #define _VKI_NSIG_WORDS (_VKI_NSIG / _VKI_NSIG_BPW)
 
 typedef unsigned long vki_old_sigset_t;  /* at least 32 bits */
@@ -403,7 +403,7 @@ struct vki_stat {
         unsigned int    st_dev;
         unsigned int    st_pad0[3];     /* Reserved for st_dev expansion  */
 
-        unsigned long   st_ino;
+        __vki_u64       st_ino;
 
         int             st_mode;
         unsigned int    st_nlink;
@@ -414,7 +414,7 @@ struct vki_stat {
         unsigned int    st_rdev;
         unsigned int    st_pad1[3];     /* Reserved for st_rdev expansion  */
 
-        long            st_size;
+        __vki_u64       st_size;
 
         /*
          * Actually this should be timestruc_t st_atime, st_mtime and st_ctime
@@ -914,7 +914,13 @@ typedef union vki_sigval {
 } vki_sigval_t;
 
 #ifndef __VKI_ARCH_SI_PREAMBLE_SIZE
+#if defined(VGABI_64)
 #define __VKI_ARCH_SI_PREAMBLE_SIZE (4 * sizeof(int))
+#elif defined(VGABI_N32)
+#define __VKI_ARCH_SI_PREAMBLE_SIZE (3 * sizeof(int))
+#else
+#error unknown mips64 abi
+#endif
 #endif
 
 #define VKI_SI_MAX_SIZE 128

@@ -5687,15 +5687,15 @@ typedef
 "$7", "$8", "$9", "$10", "$11", "$12", "$13", "$14", "$15", "$24", \
 "$25", "$31"
 
-/* These CALL_FN_ macros assume that on mips-linux, sizeof(unsigned
-   long) == 4. */
+/* These CALL_FN_ macros assume that on mips64-linux,
+ * sizeof(unsigned long long) == 8 */
 
 #define CALL_FN_W_v(lval, orig)                                   \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[1];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
+      volatile unsigned long long _argvec[1];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
       __asm__ volatile(                                           \
          "ld $25, 0(%1)\n\t"  /* target->t9 */                    \
          VALGRIND_CALL_NOREDIR_T9                                 \
@@ -5710,10 +5710,10 @@ typedef
 #define CALL_FN_W_W(lval, orig, arg1)                             \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[2];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
+      volatile unsigned long long _argvec[2];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"   /* arg1*/                           \
          "ld $25, 0(%1)\n\t"  /* target->t9 */                    \
@@ -5729,11 +5729,11 @@ typedef
 #define CALL_FN_W_WW(lval, orig, arg1,arg2)                       \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[3];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
+      volatile unsigned long long _argvec[3];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5750,12 +5750,12 @@ typedef
 #define CALL_FN_W_WWW(lval, orig, arg1,arg2,arg3)                 \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[4];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
+      volatile unsigned long long _argvec[4];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5773,13 +5773,13 @@ typedef
 #define CALL_FN_W_WWWW(lval, orig, arg1,arg2,arg3,arg4)           \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[5];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
+      volatile unsigned long long _argvec[5];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5798,14 +5798,14 @@ typedef
 #define CALL_FN_W_5W(lval, orig, arg1,arg2,arg3,arg4,arg5)        \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[6];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
+      volatile unsigned long long _argvec[6];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5825,15 +5825,15 @@ typedef
 #define CALL_FN_W_6W(lval, orig, arg1,arg2,arg3,arg4,arg5,arg6)   \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[7];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
+      volatile unsigned long long _argvec[7];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5855,16 +5855,16 @@ typedef
                                  arg7)                            \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[8];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
+      volatile unsigned long long _argvec[8];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5887,17 +5887,17 @@ typedef
                                  arg7,arg8)                       \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[9];                          \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
-      _argvec[8] = (unsigned long)(arg8);                         \
+      volatile unsigned long long _argvec[9];                     \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
+      _argvec[8] = (unsigned long long)(arg8);                    \
       __asm__ volatile(                                           \
          "ld $4, 8(%1)\n\t"                                       \
          "ld $5, 16(%1)\n\t"                                      \
@@ -5921,18 +5921,18 @@ typedef
                                  arg7,arg8,arg9)                  \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[10];                         \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
-      _argvec[8] = (unsigned long)(arg8);                         \
-      _argvec[9] = (unsigned long)(arg9);                         \
+      volatile unsigned long long _argvec[10];                    \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
+      _argvec[8] = (unsigned long long)(arg8);                    \
+      _argvec[9] = (unsigned long long)(arg9);                    \
       __asm__ volatile(                                           \
          "dsubu $29, $29, 8\n\t"                                  \
          "ld $4, 72(%1)\n\t"                                      \
@@ -5960,19 +5960,19 @@ typedef
                                   arg7,arg8,arg9,arg10)           \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[11];                         \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
-      _argvec[8] = (unsigned long)(arg8);                         \
-      _argvec[9] = (unsigned long)(arg9);                         \
-      _argvec[10] = (unsigned long)(arg10);                       \
+      volatile unsigned long long _argvec[11];                    \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
+      _argvec[8] = (unsigned long long)(arg8);                    \
+      _argvec[9] = (unsigned long long)(arg9);                    \
+      _argvec[10] = (unsigned long long)(arg10);                  \
       __asm__ volatile(                                           \
          "dsubu $29, $29, 16\n\t"                                 \
          "ld $4, 72(%1)\n\t"                                      \
@@ -6003,20 +6003,20 @@ typedef
                                   arg11)                          \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[12];                         \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
-      _argvec[8] = (unsigned long)(arg8);                         \
-      _argvec[9] = (unsigned long)(arg9);                         \
-      _argvec[10] = (unsigned long)(arg10);                       \
-      _argvec[11] = (unsigned long)(arg11);                       \
+      volatile unsigned long long _argvec[12];                    \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
+      _argvec[8] = (unsigned long long)(arg8);                    \
+      _argvec[9] = (unsigned long long)(arg9);                    \
+      _argvec[10] = (unsigned long long)(arg10);                  \
+      _argvec[11] = (unsigned long long)(arg11);                  \
       __asm__ volatile(                                           \
          "dsubu $29, $29, 24\n\t"                                 \
          "ld $4, 72(%1)\n\t"                                      \
@@ -6049,21 +6049,21 @@ typedef
                                   arg11,arg12)                    \
    do {                                                           \
       volatile OrigFn        _orig = (orig);                      \
-      volatile unsigned long _argvec[13];                         \
-      volatile unsigned long _res;                                \
-      _argvec[0] = (unsigned long)_orig.nraddr;                   \
-      _argvec[1] = (unsigned long)(arg1);                         \
-      _argvec[2] = (unsigned long)(arg2);                         \
-      _argvec[3] = (unsigned long)(arg3);                         \
-      _argvec[4] = (unsigned long)(arg4);                         \
-      _argvec[5] = (unsigned long)(arg5);                         \
-      _argvec[6] = (unsigned long)(arg6);                         \
-      _argvec[7] = (unsigned long)(arg7);                         \
-      _argvec[8] = (unsigned long)(arg8);                         \
-      _argvec[9] = (unsigned long)(arg9);                         \
-      _argvec[10] = (unsigned long)(arg10);                       \
-      _argvec[11] = (unsigned long)(arg11);                       \
-      _argvec[12] = (unsigned long)(arg12);                       \
+      volatile unsigned long long _argvec[13];                    \
+      volatile unsigned long long _res;                           \
+      _argvec[0] = (unsigned long long)_orig.nraddr;              \
+      _argvec[1] = (unsigned long long)(arg1);                    \
+      _argvec[2] = (unsigned long long)(arg2);                    \
+      _argvec[3] = (unsigned long long)(arg3);                    \
+      _argvec[4] = (unsigned long long)(arg4);                    \
+      _argvec[5] = (unsigned long long)(arg5);                    \
+      _argvec[6] = (unsigned long long)(arg6);                    \
+      _argvec[7] = (unsigned long long)(arg7);                    \
+      _argvec[8] = (unsigned long long)(arg8);                    \
+      _argvec[9] = (unsigned long long)(arg9);                    \
+      _argvec[10] = (unsigned long long)(arg10);                  \
+      _argvec[11] = (unsigned long long)(arg11);                  \
+      _argvec[12] = (unsigned long long)(arg12);                  \
       __asm__ volatile(                                           \
          "dsubu $29, $29, 32\n\t"                                 \
          "ld $4, 72(%1)\n\t"                                      \

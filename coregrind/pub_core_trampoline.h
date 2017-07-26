@@ -157,6 +157,8 @@ extern UInt  VG_(mips32_linux_REDIR_FOR_strlen)( void* );
 extern Addr  VG_(mips64_linux_SUBST_FOR_rt_sigreturn);
 extern Char* VG_(mips64_linux_REDIR_FOR_index)( const Char*, Int );
 extern UInt  VG_(mips64_linux_REDIR_FOR_strlen)( void* );
+extern UInt  VG_(mips64_linux_REDIR_FOR_strcmp)( void*, void* );
+extern void* VG_(mips64_linux_REDIR_FOR_strchr)( void*, Int );
 #endif
 
 #if defined(VGP_x86_solaris)

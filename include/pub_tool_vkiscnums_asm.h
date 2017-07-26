@@ -58,7 +58,13 @@
 #  include "vki/vki-scnums-mips32-linux.h"
 
 #elif defined(VGP_mips64_linux)
-#  include "vki/vki-scnums-mips64-linux.h"
+#  if defined(VGABI_64)
+#    include "vki/vki-scnums-mips64-linux.h"
+#  elif defined(VGABI_N32)
+#    include "vki/vki-scnums-mips64n32-linux.h"
+#  else
+#    error unknown mips64 abi
+#endif
 
 #elif defined(VGP_x86_darwin) || defined(VGP_amd64_darwin)
 #  include "vki/vki-scnums-darwin.h"

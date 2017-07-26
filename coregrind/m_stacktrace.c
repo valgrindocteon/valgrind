@@ -1366,8 +1366,8 @@ UInt VG_(get_StackTrace_wrk) ( ThreadId tid_if_known,
 
    while (True) {
       if (debug) {
-         VG_(printf)("i: %d, pc: 0x%lx, sp: 0x%lx, ra: 0x%lx\n",
-                     i, uregs.pc, uregs.sp, uregs.ra);
+         VG_(printf)("i: %d, pc: 0x%lx, sp: 0x%lx, fp: 0x%lx, ra: 0x%lx\n",
+                     i, uregs.pc, uregs.sp, uregs.fp, uregs.ra);
       }
       if (i >= max_n_ips)
          break;
@@ -1375,8 +1375,8 @@ UInt VG_(get_StackTrace_wrk) ( ThreadId tid_if_known,
       D3UnwindRegs uregs_copy = uregs;
       if (VG_(use_CF_info)( &uregs, fp_min, fp_max )) {
          if (debug)
-            VG_(printf)("USING CFI: pc: 0x%lx, sp: 0x%lx, ra: 0x%lx\n",
-                        uregs.pc, uregs.sp, uregs.ra);
+            VG_(printf)("USING CFI: pc: 0x%lx, sp: 0x%lx, fp: 0x%lx, ra: 0x%lx\n",
+                        uregs.pc, uregs.sp, uregs.fp, uregs.ra);
          if (0 != uregs.pc && 1 != uregs.pc) {
             if (sps) sps[i] = uregs.sp;
             if (fps) fps[i] = uregs.fp;
