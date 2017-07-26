@@ -37,6 +37,13 @@
 // PURPOSE: This module contains the code for actually executing syscalls.
 //--------------------------------------------------------------------
 
+/* syscall arguments have the same size as a register */
+#if defined(VGA_mips64) && defined(VGABI_N32)
+typedef ULong SyscallArgT;
+#else
+typedef UWord SyscallArgT;
+#endif
+
 /* Do a syscall on this platform, with 8 args, and return the result
    in canonical format in a SysRes value. */
 
@@ -47,9 +54,9 @@
 // happen with the 6th arg on AMD64 which is passed on the stack.
 
 extern SysRes VG_(do_syscall) ( UWord sysno, 
-                                UWord, UWord, UWord, 
-                                UWord, UWord, UWord, 
-                                UWord, UWord );
+                                SyscallArgT, SyscallArgT, SyscallArgT,
+                                SyscallArgT, SyscallArgT, SyscallArgT,
+                                SyscallArgT, SyscallArgT );
 
 /* Macros make life easier. */
 

@@ -175,6 +175,10 @@ typedef  unsigned long HWord;
 #   define VEX_HOST_WORDSIZE 8
 #   define VEX_REGPARM(_n) /* */
 
+#elif defined(__mips__) && defined(VGABI_N32)
+#   define VEX_HOST_WORDSIZE 4
+#   define VEX_REGPARM(_n) /* */
+
 #elif defined(__mips__) && (__mips == 64)
 #   define VEX_HOST_WORDSIZE 8
 #   define VEX_REGPARM(_n) /* */

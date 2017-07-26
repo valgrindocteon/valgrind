@@ -179,7 +179,12 @@ typedef void  (*Free_Fn_t)        ( void* p );
 typedef
    struct {
       Bool  _isError;
+#if defined(VGABI_N32)
+      // mips n32 has 64bit registers
+      ULong _val;
+#else
       UWord _val;
+#endif
       UWord _valEx;
    }
    SysRes;
@@ -231,9 +236,15 @@ typedef
 static inline Bool sr_isError ( SysRes sr ) {
    return sr._isError;
 }
+#if defined(VGABI_N32)
+static inline ULong sr_Res ( SysRes sr ) {
+   return sr._isError ? 0 : sr._val;
+}
+#else
 static inline UWord sr_Res ( SysRes sr ) {
    return sr._isError ? 0 : sr._val;
 }
+#endif
 static inline UWord sr_ResEx ( SysRes sr ) {
    return sr._isError ? 0 : sr._valEx;
 }
@@ -243,7 +254,7 @@ static inline UWord sr_Err ( SysRes sr ) {
 static inline Bool sr_EQ ( UInt sysno, SysRes sr1, SysRes sr2 ) {
    /* This uglyness of hardcoding syscall numbers is necessary to
       avoid having this header file be dependent on
-      include/vki/vki-scnums-mips{32,64}-linux.h.  It seems pretty
+      include/vki/vki-scnums-mips{32,64,64n32}-linux.h.  It seems pretty
       safe given that it is inconceivable that the syscall numbers
       for such simple syscalls would ever change.  To make it 
       really safe, coregrind/m_vkiscnums.c static-asserts that these
@@ -253,6 +264,10 @@ static inline Bool sr_EQ ( UInt sysno, SysRes sr1, SysRes sr2 ) {
    const UInt __nr_Linux = 4000;
    const UInt __nr_pipe  = __nr_Linux + 42;
    const UInt __nr_pipe2 = __nr_Linux + 328;
+#  elif defined(VGP_mips64_linux) && defined(VGABI_N32)
+   const UInt __nr_Linux = 6000;
+   const UInt __nr_pipe  = __nr_Linux + 21;
+   const UInt __nr_pipe2 = __nr_Linux + 291;
 #  else
    const UInt __nr_Linux = 5000;
    const UInt __nr_pipe  = __nr_Linux + 21;
