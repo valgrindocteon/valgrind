@@ -241,7 +241,7 @@ static const char *select_platform(const char *clientname)
 #ifndef EF_MIPS_ARCH_64R2
 #define EF_MIPS_ARCH_64R2 0x80000000
 #endif
-	       if (ehdr->e_flags & (EF_MIPS_ARCH_64 | EF_MIPS_ARCH_64R2)) {
+	       if (header.ehdr32.e_flags & (EF_MIPS_ARCH_64 | EF_MIPS_ARCH_64R2)) {
                   platform = "mips64-linux";
                } else {
                   platform = "mips32-linux";
