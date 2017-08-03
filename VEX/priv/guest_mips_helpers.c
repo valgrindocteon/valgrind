@@ -451,6 +451,10 @@ HWord mips_dirtyhelper_rdhwr ( UInt rd )
          ASM_VOLATILE_RDHWR(3); /* rdhwr v0, $3 */
          break;
 
+      case 30:  /* x = CVMX_get_chord() */
+         ASM_VOLATILE_RDHWR(30); /* rdhwr v0, $30 */
+         break;
+
       case 31:  /* x = CVMX_get_cycles() */
          ASM_VOLATILE_RDHWR(31); /* rdhwr v0, $31 */
          break;
